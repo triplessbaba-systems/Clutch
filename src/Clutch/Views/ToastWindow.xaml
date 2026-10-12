@@ -1,0 +1,59 @@
+<Window x:Class="Clutch.Views.ToastWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Clutch"
+        Width="340"
+        SizeToContent="Height"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Topmost="True"
+        FontFamily="{StaticResource UiFont}"
+        TextOptions.TextFormattingMode="Display">
+
+    <Border x:Name="Card" Background="#F21B1B1D" CornerRadius="10" Padding="10">
+        <Border.RenderTransform>
+            <TranslateTransform x:Name="Offset" />
+        </Border.RenderTransform>
+
+        <DockPanel>
+            <!-- Kaydedilen klibin küçük resmi -->
+            <Border x:Name="ThumbFrame" DockPanel.Dock="Left" Width="96" Height="54" Margin="0,0,12,0" CornerRadius="6"
+                    Background="#111113" Visibility="Collapsed">
+                <Border.OpacityMask>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Border Width="96" Height="54" CornerRadius="6" Background="Black" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.OpacityMask>
+                <Image x:Name="Thumb" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" />
+            </Border>
+
+            <!-- Küçük resim yoksa: uygulama işareti ya da hata simgesi -->
+            <Grid x:Name="Mark" DockPanel.Dock="Left" Width="20" Height="20" Margin="4,0,12,0" VerticalAlignment="Center">
+                <Canvas x:Name="Logo" Width="24" Height="24">
+                    <Canvas.RenderTransform>
+                        <ScaleTransform ScaleX="0.84" ScaleY="0.84" />
+                    </Canvas.RenderTransform>
+                    <Path Data="{StaticResource LogoRing}" Stroke="{StaticResource BrushText}" StrokeThickness="2.4"
+                          StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                    <Path Data="{StaticResource LogoArrow}" Fill="{StaticResource BrushText}" />
+                    <Path Data="{StaticResource LogoDot}" Fill="{StaticResource BrushAccent}" />
+                </Canvas>
+                <TextBlock x:Name="ErrorGlyph" Style="{StaticResource Icon}" FontSize="16" Foreground="{StaticResource BrushRecord}"
+                           Text="{StaticResource IconWarning}" Visibility="Collapsed" />
+            </Grid>
+
+            <StackPanel VerticalAlignment="Center" Margin="0,0,4,0">
+                <TextBlock x:Name="TitleText" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource BrushText}"
+                           TextTrimming="CharacterEllipsis" />
+                <TextBlock x:Name="DetailText" Margin="0,2,0,0" FontSize="12" Foreground="{StaticResource BrushTextSecondary}"
+                           TextWrapping="Wrap" Typography.NumeralAlignment="Tabular" />
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</Window>

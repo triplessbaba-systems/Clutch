@@ -1,0 +1,72 @@
+<UserControl x:Class="Clutch.Views.TrimView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Clutch.UI.Controls"
+             FontSize="13"
+             Foreground="{StaticResource BrushText}">
+
+    <UserControl.Resources>
+        <Style x:Key="Value" TargetType="TextBlock" BasedOn="{StaticResource Tabular}">
+            <Setter Property="Margin" Value="0,2,0,0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel Margin="22,16,22,20">
+
+        <!-- Başlık -->
+        <DockPanel DockPanel.Dock="Top" Margin="-8,0,0,14">
+            <Button DockPanel.Dock="Left" Style="{StaticResource IconButton}" Content="&#xE72B;" ToolTip="Galeriye dön"
+                    AutomationProperties.Name="Geri" Click="OnCancel" />
+            <StackPanel Margin="6,0,0,0" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource Heading}" Text="Klibi kırp" />
+                <TextBlock x:Name="ClipName" Style="{StaticResource Caption}" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Alt çubuk: seçim bilgisi + kaydet -->
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Margin="0,0,8,0" Style="{StaticResource TextButton}" Content="Vazgeç" Click="OnCancel" />
+                <Button x:Name="SaveButton" MinWidth="150" Content="Kırpılmış kopyayı kaydet"
+                        Style="{DynamicResource AccentButtonStyle}" Click="OnSave" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <StackPanel Margin="0,0,28,0">
+                    <TextBlock Style="{StaticResource Caption}" Text="Başlangıç" />
+                    <TextBlock x:Name="StartText" Style="{StaticResource Value}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,28,0">
+                    <TextBlock Style="{StaticResource Caption}" Text="Bitiş" />
+                    <TextBlock x:Name="EndText" Style="{StaticResource Value}" />
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource Caption}" Text="Uzunluk" />
+                    <TextBlock x:Name="LengthText" Style="{StaticResource Value}" Foreground="{StaticResource BrushAccent}" />
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Oynatma + kırpma şeridi -->
+        <DockPanel DockPanel.Dock="Bottom" Margin="0,14,0,0">
+            <Button x:Name="PlayButton" DockPanel.Dock="Left" Style="{StaticResource IconButton}" Content="&#xE768;"
+                    ToolTip="Oynat / duraklat (Boşluk)" AutomationProperties.Name="Oynat" Click="OnPlayPause" />
+            <TextBlock x:Name="PositionText" DockPanel.Dock="Left" Width="64" Margin="6,0,10,0" VerticalAlignment="Center"
+                       Style="{StaticResource Tabular}" FontSize="12" Foreground="{StaticResource BrushTextSecondary}" />
+            <TextBlock x:Name="DurationText" DockPanel.Dock="Right" Margin="12,0,0,0" VerticalAlignment="Center"
+                       Style="{StaticResource Tabular}" FontSize="12" Foreground="{StaticResource BrushTextSecondary}" />
+            <controls:TrimTimeline x:Name="Timeline" VerticalAlignment="Center" />
+        </DockPanel>
+
+        <!-- Video -->
+        <Border CornerRadius="8" Background="#0B0B0C" ClipToBounds="True">
+            <Grid>
+                <MediaElement x:Name="Player" LoadedBehavior="Manual" UnloadedBehavior="Close" Stretch="Uniform"
+                              ScrubbingEnabled="True" MediaOpened="OnMediaOpened" MediaFailed="OnMediaFailed" />
+                <TextBlock x:Name="ErrorText" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource Caption}"
+                           Visibility="Collapsed" Text="Bu video önizlenemiyor" />
+            </Grid>
+        </Border>
+    </DockPanel>
+</UserControl>

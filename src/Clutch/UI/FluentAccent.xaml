@@ -1,0 +1,30 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        WPF Fluent teması vurgu rengini Windows'tan (çoğunlukla mavi) alır. Bu anahtarlar Fluent'in kendi
+        anahtar adlarıdır (PresentationFramework.Fluent.dll'den okundu). WindowTheme.Apply pencerenin kendi
+        kaynaklarına kopyalar; birleştirilmiş sözlük olarak eklense Fluent'inki öncelik alırdı.
+    -->
+    <SolidColorBrush x:Key="AccentFillColorDefaultBrush" Color="#76B900" />
+    <SolidColorBrush x:Key="AccentFillColorSecondaryBrush" Color="#E676B900" />
+    <SolidColorBrush x:Key="AccentFillColorTertiaryBrush" Color="#CC76B900" />
+    <SolidColorBrush x:Key="AccentTextFillColorPrimaryBrush" Color="#8FD11A" />
+    <SolidColorBrush x:Key="TextOnAccentFillColorPrimaryBrush" Color="#121316" />
+    <SolidColorBrush x:Key="TextOnAccentFillColorSecondaryBrush" Color="#121316" />
+    <SolidColorBrush x:Key="AccentControlElevationBorderBrush" Color="#76B900" />
+    <SolidColorBrush x:Key="AccentButtonBackground" Color="#76B900" />
+    <SolidColorBrush x:Key="AccentButtonBackgroundPointerOver" Color="#86C914" />
+    <SolidColorBrush x:Key="AccentButtonBackgroundPressed" Color="#68A300" />
+    <SolidColorBrush x:Key="AccentButtonBorderBrush" Color="#76B900" />
+    <SolidColorBrush x:Key="AccentButtonBorderBrushPointerOver" Color="#86C914" />
+    <SolidColorBrush x:Key="AccentButtonBorderBrushPressed" Color="#68A300" />
+    <SolidColorBrush x:Key="AccentButtonForeground" Color="#121316" />
+    <SolidColorBrush x:Key="AccentButtonForegroundPointerOver" Color="#121316" />
+    <SolidColorBrush x:Key="AccentButtonForegroundPressed" Color="#121316" />
+    <SolidColorBrush x:Key="SliderThumbBackground" Color="#76B900" />
+    <SolidColorBrush x:Key="SliderThumbBackgroundPointerOver" Color="#86C914" />
+    <SolidColorBrush x:Key="SliderInnerThumb" Color="#76B900" />
+    <SolidColorBrush x:Key="TextControlFocusedBorderBrush" Color="#76B900" />
+    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#76B900" />
+</ResourceDictionary>

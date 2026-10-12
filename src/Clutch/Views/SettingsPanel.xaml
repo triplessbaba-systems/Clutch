@@ -1,0 +1,151 @@
+<UserControl x:Class="Clutch.Views.SettingsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Clutch.UI.Controls"
+             FontSize="13"
+             Foreground="{StaticResource BrushText}">
+
+    <UserControl.Resources>
+        <!-- Satır: solda etiket, sağda kontrol -->
+        <Style TargetType="controls:SettingRow">
+            <Setter Property="Margin" Value="0,0,0,6" />
+            <Setter Property="MinHeight" Value="36" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:SettingRow">
+                        <DockPanel>
+                            <ContentPresenter DockPanel.Dock="Right" VerticalAlignment="Center" />
+                            <StackPanel Margin="0,0,16,0" VerticalAlignment="Center">
+                                <TextBlock Text="{TemplateBinding Title}" />
+                                <TextBlock x:Name="Desc" Margin="0,2,0,0" FontSize="11.5" TextWrapping="Wrap"
+                                           Foreground="{StaticResource BrushTextTertiary}" Text="{TemplateBinding Description}" />
+                            </StackPanel>
+                        </DockPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Description" Value="">
+                                <Setter TargetName="Desc" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Section" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,22,0,10" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="{StaticResource BrushTextSecondary}" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <DockPanel>
+        <!-- Alt çubuk -->
+        <Border DockPanel.Dock="Bottom" Padding="22,12" BorderBrush="{StaticResource BrushDivider}" BorderThickness="0,1,0,0">
+            <StackPanel>
+                <TextBlock x:Name="ErrorText" Margin="0,0,0,10" FontSize="12" TextWrapping="Wrap" Foreground="{StaticResource BrushRecord}"
+                           Visibility="Collapsed" />
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" MinWidth="96" Content="Uygula" Style="{DynamicResource AccentButtonStyle}" Click="OnApply" />
+                    <Button HorizontalAlignment="Left" Style="{StaticResource TextButton}" Content="Değişiklikleri geri al" Click="OnRevert" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="22,0,22,16">
+
+                <TextBlock Style="{StaticResource Section}" Margin="0,18,0,10" Text="Video" />
+                <controls:SettingRow Title="Kodlayıcı">
+                    <ComboBox x:Name="EncoderBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding Encoder}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Biçim">
+                    <ComboBox x:Name="CodecBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding Codec}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Kalite">
+                    <ComboBox x:Name="PresetBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding Preset}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Bit hızı">
+                    <StackPanel Width="168" Orientation="Horizontal">
+                        <Slider x:Name="BitrateSlider" Width="96" VerticalAlignment="Center" Minimum="5" Maximum="100"
+                                TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding BitrateMbps}" />
+                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource Tabular}" Foreground="{StaticResource BrushTextSecondary}"
+                                   Text="{Binding Value, ElementName=BitrateSlider, StringFormat='{}{0:0} Mb/sn'}" />
+                    </StackPanel>
+                </controls:SettingRow>
+                <controls:SettingRow Title="Bit hızı modu">
+                    <ComboBox x:Name="RateBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding RateControl}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Kare hızı">
+                    <ComboBox x:Name="FpsBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding Fps}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Ekran">
+                    <ComboBox x:Name="MonitorBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding MonitorIndex}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Dosya türü">
+                    <ComboBox x:Name="FormatBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding Format}" />
+                </controls:SettingRow>
+
+                <TextBlock Style="{StaticResource Section}" Text="Anında tekrar" />
+                <controls:SettingRow Title="Süre">
+                    <ComboBox x:Name="ReplayBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding ReplaySeconds}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Açılışta başlat">
+                    <CheckBox Style="{StaticResource Switch}" AutomationProperties.Name="Açılışta başlat" IsChecked="{Binding ReplayOnStartup}" />
+                </controls:SettingRow>
+
+                <TextBlock Style="{StaticResource Section}" Text="Ses" />
+                <controls:SettingRow Title="Ses kalitesi">
+                    <ComboBox x:Name="AudioBitrateBox" Width="168" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding AudioBitrateKbps}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Mikrofonu ayrı kanala yaz" Description="Kurguda oyun sesi ve sesini ayrı ayarlayabilirsin.">
+                    <CheckBox Style="{StaticResource Switch}" AutomationProperties.Name="Mikrofonu ayrı kanala yaz" IsChecked="{Binding SeparateAudioTracks}" />
+                </controls:SettingRow>
+
+                <TextBlock Style="{StaticResource Section}" Text="Kısayollar" />
+                <StackPanel DataContext="{Binding Hotkeys}">
+                    <controls:SettingRow Title="Overlay">
+                        <controls:HotkeyBox x:Name="HkOverlay" Width="168" Value="{Binding ToggleOverlay}" />
+                    </controls:SettingRow>
+                    <controls:SettingRow Title="Klip kaydet">
+                        <controls:HotkeyBox x:Name="HkSaveReplay" Width="168" Value="{Binding SaveReplay}" />
+                    </controls:SettingRow>
+                    <controls:SettingRow Title="Anında tekrar">
+                        <controls:HotkeyBox x:Name="HkToggleReplay" Width="168" Value="{Binding ToggleReplay}" />
+                    </controls:SettingRow>
+                    <controls:SettingRow Title="Kayıt">
+                        <controls:HotkeyBox x:Name="HkRecord" Width="168" Value="{Binding ToggleRecording}" />
+                    </controls:SettingRow>
+                    <controls:SettingRow Title="Ekran görüntüsü">
+                        <controls:HotkeyBox x:Name="HkScreenshot" Width="168" Value="{Binding Screenshot}" />
+                    </controls:SettingRow>
+                </StackPanel>
+                <Border x:Name="ConflictPanel" Margin="0,6,0,0" Visibility="Collapsed">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Left" Margin="0,1,8,0" VerticalAlignment="Top" Style="{StaticResource Icon}"
+                                   FontSize="13" Foreground="{StaticResource BrushWarning}" Text="{StaticResource IconWarning}" />
+                        <TextBlock x:Name="ConflictText" FontSize="12" TextWrapping="Wrap" Foreground="{StaticResource BrushWarning}" />
+                    </DockPanel>
+                </Border>
+                <Button Margin="-10,4,0,0" HorizontalAlignment="Left" Style="{StaticResource TextButton}" Content="Varsayılan kısayollar" Click="OnResetHotkeys" />
+
+                <TextBlock Style="{StaticResource Section}" Text="Genel" />
+                <controls:SettingRow Title="Kayıt yeri" Description="{Binding OutputFolder}">
+                    <Button Content="Değiştir" Click="OnBrowse" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Windows ile başlat" Description="Bilgisayar açılınca tepside sessizce başlar.">
+                    <CheckBox Style="{StaticResource Switch}" AutomationProperties.Name="Windows ile başlat" IsChecked="{Binding StartWithWindows}" />
+                </controls:SettingRow>
+                <controls:SettingRow Title="Kayıt sırasında süreyi göster">
+                    <CheckBox Style="{StaticResource Switch}" AutomationProperties.Name="Kayıt sırasında süreyi göster" IsChecked="{Binding ShowRecordingIndicator}" />
+                </controls:SettingRow>
+                <DockPanel Margin="0,10,0,0">
+                    <TextBlock x:Name="VersionText" DockPanel.Dock="Right" VerticalAlignment="Center" FontSize="12"
+                               Foreground="{StaticResource BrushTextTertiary}" />
+                    <Button Margin="-10,0,0,0" HorizontalAlignment="Left" Style="{StaticResource TextButton}" Foreground="{StaticResource BrushRecord}"
+                            Content="Clutch'tan çık" Click="OnExit" />
+                </DockPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

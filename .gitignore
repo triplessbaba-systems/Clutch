@@ -1,0 +1,10 @@
+bin/
+obj/
+.vs/
+*.user
+publish/
+
+# Geliştirme için yerel ffmpeg kopyası (~85 MB), repoya girmez
+src/Clutch/ffmpeg/
+artifacts/
+__pycache__/
